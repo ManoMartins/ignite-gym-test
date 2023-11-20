@@ -28,9 +28,11 @@ export function History() {
       const title = isAppError ? error.message : 'Não foi possível carregar os detalhes do exercício';
 
       toast.show({
+        testID: 'toast-message',
         title,
         placement: 'top',
-        bgColor: 'red.500'
+        bgColor: 'red.500',
+        duration: 1500
       });
     } finally {
       setIsLoading(false);
