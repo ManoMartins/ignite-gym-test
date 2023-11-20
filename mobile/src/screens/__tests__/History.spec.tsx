@@ -1,13 +1,7 @@
-
-import { NativeBaseProvider } from 'native-base'
-import {act, render, screen, waitFor} from '@testing-library/react-native'
-
-import { History } from '@screens/History';
-
-import { THEME } from '../../theme'
-import { NavigationContainer } from '@react-navigation/native';
 import { api } from '@services/api';
-import moment from 'moment';
+import { History } from '@screens/History';
+import { render, waitFor} from '../../test/test-utils'
+
 
 const inset = {
   frame: { x: 0, y: 0, width: 0, height: 0 },
@@ -120,13 +114,7 @@ describe('History', () => {
   it('should be able to display Loading component during data fetching', async () => {
     jest.spyOn(api, 'get').mockResolvedValue({ data })
 
-    const { getByTestId, queryByTestId } = render(
-      <NativeBaseProvider theme={THEME} initialWindowMetrics={inset}>
-        <NavigationContainer>
-          <History />
-        </NavigationContainer>
-      </NativeBaseProvider>
-    )
+    const { getByTestId, queryByTestId } = render(<History />)
 
     expect(getByTestId('loading-indicator')).toBeTruthy()
     await waitFor(() => {
@@ -138,11 +126,7 @@ describe('History', () => {
     jest.spyOn(api, 'get').mockRejectedValueOnce(new Error('API error'))
 
     const { getByText, getByTestId, queryByTestId } = await waitFor(() => render(
-      <NativeBaseProvider theme={THEME} initialWindowMetrics={inset}>
-        <NavigationContainer>
-          <History />
-        </NavigationContainer>
-      </NativeBaseProvider>
+      <History />
     ))
 
     expect(getByTestId('toast-message')).toBeTruthy()
@@ -158,13 +142,7 @@ describe('History', () => {
   it('should be able to render the list correctly with data', async () => {
     jest.spyOn(api, 'get').mockResolvedValue({ data })
 
-    const { getByText, queryByText } = await waitFor(() => render(
-      <NativeBaseProvider theme={THEME} initialWindowMetrics={inset}>
-        <NavigationContainer>
-          <History />
-        </NavigationContainer>
-      </NativeBaseProvider>
-    ))
+    const { getByText, queryByText } = await waitFor(() => render(<History />))
 
     expect(getByText(data[0].title)).toBeTruthy()
     expect(getByText(data[1].title)).toBeTruthy()
@@ -174,13 +152,7 @@ describe('History', () => {
   it('should be able to display correct message on empty list', async () => {
     jest.spyOn(api, 'get').mockResolvedValue({ data: [] })
 
-    const { getByText } = await waitFor(() => render(
-      <NativeBaseProvider theme={THEME} initialWindowMetrics={inset}>
-        <NavigationContainer>
-          <History />
-        </NavigationContainer>
-      </NativeBaseProvider>
-    ))
+    const { getByText } = await waitFor(() => render(<History />))
 
     expect(getByText('Não há exercícios registrados ainda. Vamos fazer exercícios hoje?')).toBeTruthy()
   })

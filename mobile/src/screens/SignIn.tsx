@@ -81,6 +81,7 @@ export function SignIn() {
             rules={{ required: 'Informe o e-mail' }}
             render={({ field: { onChange } }) => (
               <Input 
+                testID='email-input'
                 placeholder="E-mail" 
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -96,6 +97,7 @@ export function SignIn() {
             rules={{ required: 'Informe a senha' }}
             render={({ field: { onChange } }) => (
               <Input 
+                testID='password-input'
                 placeholder="Senha" 
                 secureTextEntry
                 onChangeText={onChange}
@@ -105,6 +107,7 @@ export function SignIn() {
           />
 
           <Button 
+            testID="login-button"
             title="Acessar" 
             onPress={handleSubmit(handleSignIn)} 
             isLoading={isLoading}

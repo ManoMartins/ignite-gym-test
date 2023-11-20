@@ -1,12 +1,5 @@
 import { ExerciseCard } from '@components/ExerciseCard'
-import {act, render, fireEvent, screen} from '@testing-library/react-native'
-import { NativeBaseProvider } from 'native-base'
-import { THEME } from '../../theme'
-
-const inset = {
-  frame: { x: 0, y: 0, width: 0, height: 0 },
-  insets: { top: 0, left: 0, right: 0, bottom: 0 },
-};
+import { render, fireEvent, screen } from '../../test/test-utils'
 
 describe('ExerciseCard', () => {
   it('should be able to render with button', () => {
@@ -23,11 +16,7 @@ describe('ExerciseCard', () => {
 
     const handlePress = jest.fn()
   
-    render(
-      <NativeBaseProvider theme={THEME} initialWindowMetrics={inset}>
-        <ExerciseCard data={data} onPress={handlePress} />
-      </NativeBaseProvider>
-    )
+    render(<ExerciseCard data={data} onPress={handlePress} />)
 
     fireEvent.press(screen.getByText('Rosca punho'))
     expect(handlePress).toHaveBeenCalled()
@@ -45,11 +34,7 @@ describe('ExerciseCard', () => {
       updated_at: '2023-04-29'
     }
   
-    const { getByText } = render(
-      <NativeBaseProvider theme={THEME} initialWindowMetrics={inset}>
-        <ExerciseCard data={data} />
-      </NativeBaseProvider>
-    )
+    const { getByText } = render(<ExerciseCard data={data} />)
   
     expect(getByText('Rosca punho')).toBeTruthy()
     expect(getByText('4 séries x 12 repetições')).toBeTruthy()

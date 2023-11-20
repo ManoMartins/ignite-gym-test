@@ -1,12 +1,6 @@
 import { HistoryCard } from '@components/HistoryCard'
-import {render} from '@testing-library/react-native'
-import { NativeBaseProvider } from 'native-base'
-import { THEME } from '../../theme'
+import { render } from '../../test/test-utils'
 
-const inset = {
-  frame: { x: 0, y: 0, width: 0, height: 0 },
-  insets: { top: 0, left: 0, right: 0, bottom: 0 },
-};
 
 describe('HistoryCard', () => {
   it('should be able render component with valid data', () => {
@@ -24,11 +18,7 @@ describe('HistoryCard', () => {
       created_at: currentDate.toISOString()
     }
     
-    const { getAllByText } = render(
-      <NativeBaseProvider theme={THEME} initialWindowMetrics={inset}>
-        <HistoryCard data={data} />
-      </NativeBaseProvider>
-    )
+    const { getAllByText } = render(<HistoryCard data={data} />)
     
 
     
