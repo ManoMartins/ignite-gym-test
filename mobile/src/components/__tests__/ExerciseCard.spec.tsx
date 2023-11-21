@@ -2,7 +2,7 @@ import { ExerciseCard } from '@components/ExerciseCard'
 import { render, fireEvent, screen } from '../../test/test-utils'
 
 describe('ExerciseCard', () => {
-  it('should be able to render with button', () => {
+  it('should invoke onPress callback when "Rosca punho" exercise card is pressed', () => {
     const data = {
       id: '1', 
       demo: "Teste", 
